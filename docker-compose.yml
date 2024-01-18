@@ -1,0 +1,41 @@
+version: "3"
+services:
+  lb1:
+    build:
+      context: ./lb1
+    container_name: lb1
+    ports:
+      - "80:80"
+    networks:
+      - mynetwork
+  lb2:
+    build:
+      context: ./lb2
+    container_name: lb2
+    ports:
+      - "81:80"
+    networks:
+      - mynetwork
+  backend1:
+    build:
+      context: ./backend1
+    container_name: backend1
+    ports:
+      - "8080:80"
+    networks:
+      - mynetwork
+    mem_limit: 512M  
+    mem_reservation: 256M 
+  backend2:
+    build:
+      context: ./backend2
+    container_name: backend2
+    ports:
+      - "8081:80"
+    networks:
+      - mynetwork
+    mem_limit: 512M  
+    mem_reservation: 256M 
+networks:
+  mynetwork:
+    driver: bridge
